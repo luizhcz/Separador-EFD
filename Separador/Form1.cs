@@ -26,6 +26,7 @@ namespace Separador
         public string DestinationFile { get; set; }
         public string naoVerificador { get; set; }
         Separador S;
+        Restricoes R;
 
         public Form1()
         {
@@ -62,6 +63,10 @@ namespace Separador
                 {
                     qtdAquivos = Directory.GetFiles(textBox1.Text, "*.txt", SearchOption.TopDirectoryOnly).Length;
                     arquivos = Directory.GetFiles(textBox1.Text, "*.txt" , SearchOption.TopDirectoryOnly);
+                    R = new Restricoes();
+                    arquivos = R.restricao(arquivos);
+                    qtdAquivos = arquivos.Length;
+
                     qtd.Text = "Qtd  = " + qtdAquivos;
                     
 

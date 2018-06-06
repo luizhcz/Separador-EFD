@@ -22,6 +22,11 @@ namespace Separador
             Separar();
         }
 
+        public Separador()
+        {
+            Qtde = -1;
+        }
+
 
         public void Separar()
         {
@@ -86,6 +91,8 @@ namespace Separador
            
             File.Copy(source, saida, true);
         }
+
+
 
 
 
