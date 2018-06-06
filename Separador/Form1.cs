@@ -61,6 +61,8 @@ namespace Separador
             {
                 try
                 {
+                    pictureBox1.BackColor = Color.Yellow;
+                    lblcont.Text = "Em Processo...";
                     qtdAquivos = Directory.GetFiles(textBox1.Text, "*.txt", SearchOption.TopDirectoryOnly).Length;
                     arquivos = Directory.GetFiles(textBox1.Text, "*.txt" , SearchOption.TopDirectoryOnly);
                     R = new Restricoes();
@@ -68,10 +70,19 @@ namespace Separador
                     qtdAquivos = arquivos.Length;
 
                     qtd.Text = "Qtd  = " + qtdAquivos;
-                    
 
-                    Folder1 = textBox1.Text + "\\quantidade_maior_que_zero";
-                    Folder2 = textBox1.Text + "\\quantidade_igual_a_zero";
+                    if (rbPadrao.Checked)
+                    {
+                        Folder1 = textBox1.Text + "\\quantidade_maior_que_zero";
+                        Folder2 = textBox1.Text + "\\quantidade_igual_a_zero";
+                    }
+                    else
+                    {
+                        if (txtQuant_maior_zero.Text == "" || txtQuant_maior_zero.Text == " ") { Folder1 = textBox1.Text + "\\quantidade_maior_que_zero"; }
+                        else { Folder1 = textBox1.Text + "\\" + txtQuant_maior_zero.Text.Replace(" ", "_"); }
+                        if (txtQuant_igual_zero.Text == "" || txtQuant_igual_zero.Text == " ") { Folder2 = textBox1.Text + "\\quantidade_igual_a_zero"; }
+                        else { Folder2 = textBox1.Text + "\\" + txtQuant_igual_zero.Text.Replace(" ", "_"); }
+                    }
                     
                     if (Directory.Exists(Folder1))
                     {
@@ -100,8 +111,10 @@ namespace Separador
 
                     Directory.CreateDirectory(Folder1);
                     Directory.CreateDirectory(Folder2);
+
                     progresso.Maximum = qtdAquivos;
 
+                    
                     foreach (string item in arquivos)
                     {
                         cont++;
@@ -133,6 +146,7 @@ namespace Separador
                 catch (Exception ex)
                 {
                     MessageBox.Show("Erro :" + ex.Message + "\nNo arquivo: " + arquivos[cont]);
+                    Close();
                 }
             }
         }
@@ -149,6 +163,25 @@ namespace Separador
             pictureBox1.BackColor = Color.Red;
             lblcont.Text = "Parado";
             progresso.Value = 0;
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbRenomear.Checked)
+            {
+                gpRenomear.Enabled = true;
+                gpRenomear.Visible = true;
+            }
+            
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbPadrao.Checked)
+            {
+                gpRenomear.Enabled = false;
+                gpRenomear.Visible = false;
+            }
         }
     }
 }
