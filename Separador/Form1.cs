@@ -61,8 +61,7 @@ namespace Separador
             {
                 try
                 {
-                    pictureBox1.BackColor = Color.Yellow;
-                    lblcont.Text = "Em Processo...";
+                    
                     qtdAquivos = Directory.GetFiles(textBox1.Text, "*.txt", SearchOption.TopDirectoryOnly).Length;
                     arquivos = Directory.GetFiles(textBox1.Text, "*.txt" , SearchOption.TopDirectoryOnly);
                     R = new Restricoes();
@@ -73,12 +72,12 @@ namespace Separador
 
                     if (rbPadrao.Checked)
                     {
-                        Folder1 = textBox1.Text + "\\quantidade_maior_que_zero";
+                        Folder1 = textBox1.Text + "\\Enviados";
                         Folder2 = textBox1.Text + "\\quantidade_igual_a_zero";
                     }
                     else
                     {
-                        if (txtQuant_maior_zero.Text == "" || txtQuant_maior_zero.Text == " ") { Folder1 = textBox1.Text + "\\quantidade_maior_que_zero"; }
+                        if (txtQuant_maior_zero.Text == "" || txtQuant_maior_zero.Text == " ") { Folder1 = textBox1.Text + "\\Enviados"; }
                         else { Folder1 = textBox1.Text + "\\" + txtQuant_maior_zero.Text.Replace(" ", "_"); }
                         if (txtQuant_igual_zero.Text == "" || txtQuant_igual_zero.Text == " ") { Folder2 = textBox1.Text + "\\quantidade_igual_a_zero"; }
                         else { Folder2 = textBox1.Text + "\\" + txtQuant_igual_zero.Text.Replace(" ", "_"); }
@@ -141,7 +140,9 @@ namespace Separador
                     txtErros.Text = naoVerificador;
                     procurar.Enabled = false;
                     separar.Enabled = false;
-                    
+                    MessageBox.Show("Separação do relatório foi concluida!! ", "Finalização");
+
+
                 }
                 catch (Exception ex)
                 {
